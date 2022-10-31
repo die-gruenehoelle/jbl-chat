@@ -1,2 +1,6 @@
-Django==3.2.8  # https://www.djangoproject.com/
-djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
+gunicorn==20.1.0
+Django==3.2.16  # https://www.djangoproject.com/
+djangorestframework==3.14.0  # https://github.com/encode/django-rest-framework
+django-cors-headers==3.13.0
+django-environ==0.9.0
+mysqlclient==2.1.1

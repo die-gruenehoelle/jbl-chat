@@ -1,0 +1,17 @@
+.DS_Store
+*.un~
+*~
+/.idea/
+/.env
+
+# terraform specific
+/terraform.tfstate*
+/.terraform*/
+/*.plan
+/output.json
+/*.backup
+/*.tfstate
+
+# future...
+#!/.terraform/**/
+#!lock.json

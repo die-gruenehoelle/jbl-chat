@@ -1,0 +1,95 @@
+openapi: 3.0.0
+
+info:
+  title: Chat API
+  version: 0.1.0
+
+servers:
+  - url: https://jbl-chat.gruenehoelle.nl/api/v1
+    description: Public test server
+  - url: http://127.0.0.1:8000/api/v1
+    description: Local dev server
+
+security:
+  - basicAuth: []
+
+paths:
+  /chat/users:
+    get:
+      summary: Returns a list of users.
+      responses:
+        '200':
+          description: A JSON array of users objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    date_joined:
+                      type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /chat/messages:
+    post:
+      summary: Sends a message to a user.
+      requestBody:
+        description: Optional description in *Markdown*
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipient:
+                  type: string
+                message:
+                  type: string
+
+      responses:
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /chat/messages/{user}:
+    get:
+      summary: Returns messages with `user`.
+      parameters:
+        - in: path
+          name: user
+          schema:
+            type: string
+          required: true
+      responses:
+        '200': # status code
+          description: A JSON array of message objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    author:
+                      type: string
+                    recipient:
+                      type: string
+                    message:
+                      type: string
+                    created_at:
+                      type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  responses:
+    Unauthorized:
+      description: Authorization information is missing or invalid.
